@@ -92,125 +92,7 @@ Register User
 httpPOST /api/auth/register
 Content-Type: application/json
 
-{
-  "firstName": "John",
-  "lastName": "Doe",
-  "email": "john.doe@example.com",
-  "password": "securepassword123",
-  "profilePicture": "https://example.com/profile.jpg"
-}
-Response:
-json{
-  "success": true,
-  "message": "User registered successfully",
-  "data": {
-    "user": {
-      "_id": "64f8a1b2c3d4e5f6g7h8i9j0",
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com",
-      "role": "user",
-      "isActive": true,
-      "profilePicture": "https://example.com/profile.jpg",
-      "createdAt": "2024-01-15T10:30:00.000Z",
-      "updatedAt": "2024-01-15T10:30:00.000Z"
-    }
-  }
-}
-Login User
-httpPOST /api/auth/login
-Content-Type: application/json
 
-{
-  "email": "john.doe@example.com",
-  "password": "securepassword123"
-}
-Response:
-json{
-  "success": true,
-  "message": "Login successful",
-  "data": {
-    "user": {
-      "_id": "64f8a1b2c3d4e5f6g7h8i9j0",
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com",
-      "role": "user",
-      "isActive": true,
-      "lastLogin": "2024-01-15T10:35:00.000Z"
-    },
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-  }
-}
-Logout User
-httpPOST /api/auth/logout
-Cookie: token=your-jwt-token
-Response:
-json{
-  "success": true,
-  "message": "Logout successful"
-}
-User Endpoints
-Get User Profile
-httpGET /api/user/profile
-Cookie: token=your-jwt-token
-Response:
-json{
-  "success": true,
-  "message": "User profile retrieved successfully",
-  "data": {
-    "user": {
-      "_id": "64f8a1b2c3d4e5f6g7h8i9j0",
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com",
-      "role": "user",
-      "isActive": true,
-      "lastLogin": "2024-01-15T10:35:00.000Z"
-    }
-  }
-}
-Product Endpoints
-Create Product
-httpPOST /api/products
-Content-Type: application/json
-Cookie: token=your-jwt-token
-
-{
-  "name": "iPhone 15 Pro",
-  "description": "Latest iPhone with advanced features and improved camera system.",
-  "price": 999.99,
-  "category": "Electronics",
-  "stock": 50,
-  "images": ["https://example.com/iphone1.jpg", "https://example.com/iphone2.jpg"],
-  "tags": ["smartphone", "apple", "mobile", "technology"]
-}
-Response:
-json{
-  "success": true,
-  "message": "Product created successfully",
-  "data": {
-    "product": {
-      "_id": "64f8a1b2c3d4e5f6g7h8i9j1",
-      "name": "iPhone 15 Pro",
-      "description": "Latest iPhone with advanced features and improved camera system.",
-      "price": 999.99,
-      "category": "Electronics",
-      "stock": 50,
-      "images": ["https://example.com/iphone1.jpg", "https://example.com/iphone2.jpg"],
-      "tags": ["smartphone", "apple", "mobile", "technology"],
-      "isActive": true,
-      "createdBy": {
-        "_id": "64f8a1b2c3d4e5f6g7h8i9j0",
-        "firstName": "John",
-        "lastName": "Doe",
-        "email": "john.doe@example.com"
-      },
-      "createdAt": "2024-01-15T10:40:00.000Z",
-      "updatedAt": "2024-01-15T10:40:00.000Z"
-    }
-  }
-}
 Get All Products
 httpGET /api/products?page=1&limit=10&category=Electronics&search=iphone&sortBy=price&sortOrder=asc
 Cookie: token=your-jwt-token
@@ -223,53 +105,8 @@ search (optional): Search in name, description, and tags
 sortBy (optional): Sort field (default: createdAt)
 sortOrder (optional): Sort order - 'asc' or 'desc' (default: desc)
 
-Response:
-json{
-  "success": true,
-  "message": "Products retrieved successfully",
-  "data": {
-    "products": [
-      {
-        "_id": "64f8a1b2c3d4e5f6g7h8i9j1",
-        "name": "iPhone 15 Pro",
-        "description": "Latest iPhone with advanced features and improved camera system.",
-        "price": 999.99,
-        "category": "Electronics",
-        "stock": 50,
-        "createdBy": {
-          "firstName": "John",
-          "lastName": "Doe",
-          "email": "john.doe@example.com"
-        }
-      }
-    ],
-    "pagination": {
-      "currentPage": 1,
-      "totalPages": 5,
-      "totalProducts": 50,
-      "hasNextPage": true,
-      "hasPrevPage": false
-    }
-  }
-}
-Get Single Product
-httpGET /api/products/64f8a1b2c3d4e5f6g7h8i9j1
-Cookie: token=your-jwt-token
-Update Product
-httpPUT /api/products/64f8a1b2c3d4e5f6g7h8i9j1
-Content-Type: application/json
-Cookie: token=your-jwt-token
 
-{
-  "name": "iPhone 15 Pro Max",
-  "price": 1199.99,
-  "stock": 30
-}
-Note: Only the product owner can update their products.
-Delete Product
-httpDELETE /api/products/64f8a1b2c3d4e5f6g7h8i9j1
-Cookie: token=your-jwt-token
-Note: Only the product owner can delete their products.
+
 🏗️ Project Structure
 professional-api-project/
 ├── server.js                 # Main server file
@@ -326,12 +163,7 @@ Authorization errors (403 Forbidden)
 Not found errors (404 Not Found)
 Server errors (500 Internal Server Error)
 
-All errors return a consistent JSON structure:
-json{
-  "success": false,
-  "message": "Error description",
-  "details": "Additional error details (optional)"
-}
+
 📈 Performance Features
 
 Database Indexing: Optimized database queries with proper indexes
@@ -347,27 +179,7 @@ Insomnia
 Thunder Client (VS Code extension)
 curl commands
 
-Sample curl commands:
-Register:
-bashcurl -X POST http://localhost:5000/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{
-    "firstName": "John",
-    "lastName": "Doe",
-    "email": "john.doe@example.com",
-    "password": "securepassword123"
-  }'
-Login:
-bashcurl -X POST http://localhost:5000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{
-    "email": "john.doe@example.com",
-    "password": "securepassword123"
-  }' \
-  -c cookies.txt
-Get Profile:
-bashcurl -X GET http://localhost:5000/api/user/profile \
-  -b cookies.txt
+
 🚀 Deployment
 Environment Variables for Production:
 
@@ -393,3 +205,4 @@ Umer Fayaz
 Commit your changes (git commit -m 'Add some AmazingFeature')
 Push to the branch (git push origin feature/AmazingFeature)
 Open a Pull Request
+
